@@ -1,0 +1,47 @@
+name: 'Test Create Customer'
+description: 'Replicated Create Customer'
+inputs:
+  replicated-app:
+    description: 'Replicated App Slug.'
+    required: true
+    default: ''
+  replicated-api-token:
+    description: 'Replicated API Token.'
+    required: true
+    default: ''
+  customer-name:
+    description: 'Name of the customer.'
+    required: true
+  customer-email:
+    description: 'Email of the customer.'
+    required: false
+  channel:
+    description: 'Channel to assign the customer to.'
+    required: true
+    default: '${GITHUB_REF}'
+outputs:
+  customer-id: # id of the customer
+    description: 'Contains the customer id.'
+    value: ${{ steps.cli-create-customer.outputs.customer-id }}
+  license-id: # id of the license
+    description: 'Contains the license id.'
+    value: ${{ steps.cli-get-customer-license-id.outputs.license-id }}
+runs:
+  using: "composite"
+  steps:
+    - name: 'Replicated CLI create customer'
+      id: 'cli-create-customer'
+      uses: './cli-actions/cli-create-customer'
+      with:
+        replicated-app: ${{ inputs.replicated-app }}
+        replicated-api-token: ${{ inputs.replicated-api-token }}
+        customer-name: ${{ inputs.customer-name }}
+        customer-email: ${{ inputs.customer-email }}
+        channel: ${{ inputs.channel }}
+    - name: 'Replicated CLI get customer license id'
+      id: 'cli-get-customer-license-id'
+      uses: './cli-actions/cli-get-license-id'
+      with:
+        replicated-app: ${{ inputs.replicated-app }}
+        replicated-api-token: ${{ inputs.replicated-api-token }}
+        customer: ${{ steps.cli-create-customer.outputs.customer-id }}

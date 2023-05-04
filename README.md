@@ -1,1 +1,1 @@
-# test-create-customer-action
+# Create a Customer and get the corresponding license id
