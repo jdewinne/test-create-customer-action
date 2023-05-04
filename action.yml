@@ -31,7 +31,7 @@ runs:
   steps:
     - name: 'Replicated CLI create customer'
       id: 'cli-create-customer'
-      uses: '${{ github.action_path }}/cli-actions/cli-create-customer'
+      uses: ${{ github.action_path }}/cli-actions/cli-create-customer
       with:
         replicated-app: ${{ inputs.replicated-app }}
         replicated-api-token: ${{ inputs.replicated-api-token }}
@@ -40,7 +40,7 @@ runs:
         channel: ${{ inputs.channel }}
     - name: 'Replicated CLI get customer license id'
       id: 'cli-get-customer-license-id'
-      uses: '${{ github.action_path }}/cli-actions/cli-get-license-id'
+      uses: ${{ github.action_path }}/cli-actions/cli-get-license-id
       with:
         replicated-app: ${{ inputs.replicated-app }}
         replicated-api-token: ${{ inputs.replicated-api-token }}
