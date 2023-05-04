@@ -38,8 +38,7 @@ runs:
         echo github2: ${GITHUB_ACTION_PATH}
     - name: 'Replicated CLI create customer'
       id: 'cli-create-customer'
-      working-directory: ${{ github.action_path }}
-      uses: ./cli-actions/cli-create-customer
+      uses: jdewinne/test-create-customer-action/cli-actions/cli-create-customer@0.0.10
       with:
         replicated-app: ${{ inputs.replicated-app }}
         replicated-api-token: ${{ inputs.replicated-api-token }}
@@ -48,8 +47,7 @@ runs:
         channel: ${{ inputs.channel }}
     - name: 'Replicated CLI get customer license id'
       id: 'cli-get-customer-license-id'
-      working-directory: ${{ github.action_path }}
-      uses: ./cli-actions/cli-get-license-id
+      uses: jdewinne/test-create-customer-action/cli-actions/cli-get-license-id@0.0.10
       with:
         replicated-app: ${{ inputs.replicated-app }}
         replicated-api-token: ${{ inputs.replicated-api-token }}
