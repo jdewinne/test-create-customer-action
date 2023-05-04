@@ -36,9 +36,9 @@ runs:
         ls -la
         echo github1: ${{ github.action_path }}
         echo github2: ${GITHUB_ACTION_PATH}
-        cd ${{ github.action_path }}
     - name: 'Replicated CLI create customer'
       id: 'cli-create-customer'
+      working-directory: ${{ github.action_path }}
       uses: ./cli-actions/cli-create-customer
       with:
         replicated-app: ${{ inputs.replicated-app }}
@@ -48,6 +48,7 @@ runs:
         channel: ${{ inputs.channel }}
     - name: 'Replicated CLI get customer license id'
       id: 'cli-get-customer-license-id'
+      working-directory: ${{ github.action_path }}
       uses: ./cli-actions/cli-get-license-id
       with:
         replicated-app: ${{ inputs.replicated-app }}
